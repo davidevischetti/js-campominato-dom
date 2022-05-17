@@ -4,7 +4,7 @@ const userLevel = document.getElementById('level');
 const startButton = document.getElementById('start');
 const gameGrid = document.getElementById('grid');
 const scoreMessage = document.getElementById('score');
-const loseMessage = document.getElementById('lose');
+const loseOrWinMessage = document.getElementById('lose-or-win');
 
 // INIZIO A CREARE LA TABELLA DI GIOCO
 
@@ -49,17 +49,25 @@ function cicleFunc (numCells,typeCells) {
         const gridCell = createCellFunc();
         let cellsNum = cellsArr[i];
         gridCell.append(cellsNum);
+        
 
-        // EVENTO PER CLICCARE LE CELLE
+        // EVENTO PER CLICCARE LE CELLE 
+        // E DICHIARARE PUNTEGGIO, VITTORIA E SCONFITTA
         gridCell.addEventListener ('click', function clickCellFunc() {
             
             if (cellsNum <= 16) {
                 gridCell.classList.add('bomb-cell');  
-                loseMessage.innerHTML = 'HAI PERSO!';
+                loseOrWinMessage.innerHTML = 'HAI PERSO!';
+                gameGrid.classList.add('unclickable');
             } else {
                 gridCell.classList.add('free-cell');
                 myScore ++;
                 scoreMessage.innerHTML = `PUNTEGGIO: ${myScore}`;
+                
+                if (myScore == numCells - 16) {
+                    loseOrWinMessage.innerHTML = 'HAI VINTO!';
+                    gameGrid.classList.add('unclickable');
+                };
             };
         });
         gameGrid.append(gridCell);
