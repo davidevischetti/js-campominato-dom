@@ -63,7 +63,12 @@ header select {
 #grid {
     display: flex;
     flex-wrap: wrap;
-    margin: 50px auto;
+    margin: 30px auto;
+}
+
+.message {
+    font-size: 60px;
+    text-align: center;
 }
 
 /* STILE CLASSI JS */
@@ -90,4 +95,8 @@ header select {
     /* background-color: #09f; */
     background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZgJ_63N_8ay-vRZjFrzHrlzoiIMLMtKh0MA&usqp=CAU);
     background-size: contain;
+}
+
+.bomb-cell {
+    background-color: #c00;
 }

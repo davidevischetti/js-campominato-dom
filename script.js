@@ -1,8 +1,10 @@
-// VARIBILI PER RICHIAMARE LA SCELTA 
-// DELLA DIFFICOLTA' E IL BOTTONE DI AVVIO
+// VARIBILI PER RICHIAMARE GLI
+// GLI ELEMENTI HTML
 const userLevel = document.getElementById('level');
 const startButton = document.getElementById('start');
 const gameGrid = document.getElementById('grid');
+const scoreMessage = document.getElementById('score');
+const loseMessage = document.getElementById('lose');
 
 // INIZIO A CREARE LA TABELLA DI GIOCO
 
@@ -37,27 +39,51 @@ function createCellFunc () {
 
 // FUNZIONE PER OTTIMIZZARE I CICLI 
 function cicleFunc (numCells,typeCells) {
+
+    let cellsArr = getRandomNumArr (numCells, 1, numCells);
+    console.log(cellsArr);
+
+    let myScore = 0;
+
     for (let i = 0; i < numCells; i ++) {
         const gridCell = createCellFunc();
+        let cellsNum = cellsArr[i];
+        gridCell.append(cellsNum);
+
+        // EVENTO PER CLICCARE LE CELLE
+        gridCell.addEventListener ('click', function clickCellFunc() {
+            
+            if (cellsNum <= 16) {
+                gridCell.classList.add('bomb-cell');  
+                loseMessage.innerHTML = 'HAI PERSO!';
+            } else {
+                gridCell.classList.add('free-cell');
+                myScore ++;
+                scoreMessage.innerHTML = `PUNTEGGIO: ${myScore}`;
+            };
+        });
         gameGrid.append(gridCell);
         console.log(gridCell);
-        const randomCellsNum = getRandomNum(numCells, 1, numCells);
-        gridCell.append(randomCellsNum);
-        console.log(randomCellsNum);
-        gridCell.addEventListener ('click', () => gridCell.classList.add('free-cell'));
     };
     gameGrid.className = typeCells;
     return;
 };
 
 //CREO UNA FUNZIONE CHE GENERI NUMERI RANDOM NON RIPETIBILI
-function getRandomNum (numCells, min, max) {
-    const cellsArr = [];
-    while (cellsArr.length < numCells) {
-        let randomNum = Math.floor(Math.random() * (max - min) +1) +1;
-        if (!cellsArr.includes(randomNum)) {
-            cellsArr.push(randomNum);
+function getRandomNumArr (total, minNum, maxNum) {
+    const randomNumArr = [];
+    while (randomNumArr.length < total) {
+        let randomNumUni = getRandomNum (minNum, maxNum);
+        if (!randomNumArr.includes(randomNumUni)) {
+            randomNumArr.push(randomNumUni);
         };
     };
-    return cellsArr;
+    
+    return randomNumArr;
+};
+
+// FUNZIONE PER CREARE UN NUMERO RANDOM
+function getRandomNum (min, max) {
+    const randomNum = Math.floor(Math.random() * (max - min + 1)) +1;
+    return randomNum;
 };
