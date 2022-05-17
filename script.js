@@ -49,13 +49,12 @@ function cicleFunc (numCells,typeCells) {
         const gridCell = createCellFunc();
         let cellsNum = cellsArr[i];
         gridCell.append(cellsNum);
-        
-
+        let bombs = 16;
         // EVENTO PER CLICCARE LE CELLE 
         // E DICHIARARE PUNTEGGIO, VITTORIA E SCONFITTA
         gridCell.addEventListener ('click', function clickCellFunc() {
             
-            if (cellsNum <= 16) {
+            if (cellsNum <= bombs) {
                 gridCell.classList.add('bomb-cell');  
                 loseOrWinMessage.innerHTML = 'HAI PERSO!';
                 gameGrid.classList.add('unclickable');
@@ -64,7 +63,7 @@ function cicleFunc (numCells,typeCells) {
                 myScore ++;
                 scoreMessage.innerHTML = `PUNTEGGIO: ${myScore}`;
                 
-                if (myScore == numCells - 16) {
+                if (myScore == numCells - bombs) {
                     loseOrWinMessage.innerHTML = 'HAI VINTO!';
                     gameGrid.classList.add('unclickable');
                 };
